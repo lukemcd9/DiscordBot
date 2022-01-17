@@ -1,0 +1,19 @@
+{
+    "calendar": {
+      "calendarId": "google-calendar-id",
+      "timeZone": "Some timezone",
+      "event": {
+          "summary": "Default Event name",
+          "location": "Default location"
+      }
+    },
+    "discord": {
+      "clientId": "bot-id",
+      "guildId": "server-id"
+    },
+    "mongo": {
+      "url": "mongodb://localhost:27017",
+      "databaseName": "databasename",
+      "collection": "collectionname"
+    }
+}
