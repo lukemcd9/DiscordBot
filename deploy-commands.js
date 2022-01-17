@@ -30,6 +30,11 @@ const commands = [
     .setDescription('Movies we need to watch')
     .addSubcommand((subcommand) => 
         subcommand
+        .setName("list")
+        .setDescription("List all movies")
+    )
+    .addSubcommand((subcommand) => 
+        subcommand
         .setName("add")
         .setDescription("Add movie to movielist")
         .addStringOption((option) => 

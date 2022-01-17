@@ -141,6 +141,9 @@ client.on('interactionCreate', async (interaction) => {
             } catch(error) {
                 await interaction.reply(`Error adding movie: ${error.message}`);
             }
+        } else if (interaction.options.getSubcommand() === 'list') {
+            const movies = (await database.findAll(collection)).map((movie, index) => `${index !== 0 ? ' ' + movie.title : movie.title}`);
+            await interaction.reply(`${movies.toLocaleString()}`);
         }
     }
 });
