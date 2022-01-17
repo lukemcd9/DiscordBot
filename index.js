@@ -124,7 +124,7 @@ client.on('interactionCreate', async (interaction) => {
                         }
                     });
 
-                    collector.on('end', (collected, reason) => {
+                    collector.on('end', async (collected, reason) => {
                         if (reason === 'add') {
                             await database.insert(collection, movie); 
                         }
@@ -140,6 +140,16 @@ client.on('interactionCreate', async (interaction) => {
         } else if (interaction.options.getSubcommand() === 'list') {
             const movies = (await database.findAll(collection)).map((movie, index) => `${index !== 0 ? ' ' + movie.title : movie.title}`);
             await interaction.reply(`${movies.toLocaleString()}`);
+        } else if (interaction.options.getSubcommand() === 'pick') {
+            const movies = await database.findAll(collection);
+            const movie = movies[Math.floor(Math.random() * movies.length)]
+            if (movie) {
+                const embed = await createMovieEmbed(movie);
+                await database.delete(collection, movie._id);
+                await interaction.reply({ content: `Movie Picked: ${movie.title}`, embeds: [ embed ]});
+            } else {
+                await interaction.reply("There's no movies in the watchlist!");
+            }
         }
     }
 });

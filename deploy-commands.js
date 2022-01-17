@@ -42,6 +42,11 @@ const commands = [
                 .setDescription("Name of movie")
                 .setRequired(true)
         )
+    )
+    .addSubcommand((subcommand) => 
+        subcommand
+        .setName("pick")
+        .setDescription("Pick movie to watch from watchlist")
     ),
 ].map(command => command.toJSON());
 
