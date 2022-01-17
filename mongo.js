@@ -32,6 +32,12 @@ module.exports = class Mongo {
         return insertedId;
     }
 
+    async delete(collectionName, documentId) {
+        const collection = this.db.collection(collectionName);
+        await collection.deleteOne({ _id: documentId });
+        console.log(`Deleted document, id=${documentId}`);
+    }
+
     disconnect() {
         this.client.close();
         console.log("Disconnected from Mongo server");
