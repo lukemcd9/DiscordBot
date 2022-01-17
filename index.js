@@ -25,10 +25,6 @@ async function createMovieEmbed(movie) {
         .addFields(movie.ratings.map((rating) => ({ name: rating.source, value: rating.value, inline: true })));
 }
 
-async function addMovie(movie) {
-    await database.insert(collection, movie);    
-}
-
 // Connect to mongo server
 database.connect();
 
@@ -130,12 +126,12 @@ client.on('interactionCreate', async (interaction) => {
 
                     collector.on('end', (collected, reason) => {
                         if (reason === 'add') {
-                            addMovie(movie)
+                            await database.insert(collection, movie); 
                         }
                         message.reactions.removeAll().catch(error => console.error('Failed to clear reactions:', error));
                     });
                 } else if (totalFound === 0) {
-                    addMovie(movie)
+                    await database.insert(collection, movie); 
                     await interaction.editReply({ content: "Added movie", embeds: [embed] });
                 }
             } catch(error) {
